@@ -1,0 +1,2389 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Estudos – TJCE Técnico Judiciário I09</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f1117;
+    --surface: #181c27;
+    --surface2: #1e2335;
+    --border: #272d42;
+    --text: #e8ecf5;
+    --muted: #7a85a3;
+    --accent: #4f8ef7;
+
+    --port:   #2563eb;
+    --rlm:    #7c3aed;
+    --const:  #16a34a;
+    --adm:    #ea580c;
+    --pen:    #dc2626;
+    --civ:    #0891b2;
+    --pciv:   #0d9488;
+    --ppenal: #be185d;
+    --def:    #475569;
+    --red:    #9333ea;
+
+    --tag-teoria:  #1e3a8a;
+    --tag-ttext:   #93c5fd;
+    --tag-revisao: #7f1d1d;
+    --tag-rtext:   #fca5a5;
+    --tag-lei:     #14532d;
+    --tag-ltext:   #86efac;
+    --tag-quest:   #78350f;
+    --tag-qtext:   #fcd34d;
+    --tag-red:     #4c1d95;
+    --tag-redtext: #d8b4fe;
+  }
+
+  body {
+    font-family: 'Sora', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, #0a0e1a 0%, #111827 50%, #0d1a3a 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 36px 20px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(79,142,247,0.12) 0%, transparent 70%);
+  }
+  header h1 {
+    font-size: clamp(20px, 4vw, 28px);
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: #fff;
+    position: relative;
+  }
+  header h1 span { color: var(--accent); }
+  header p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    position: relative;
+  }
+
+  /* ── PROGRESS ── */
+  .progress-wrap {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 20px 14px;
+  }
+  .progress-overall-row {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 14px;
+  }
+  .progress-overall-label {
+    font-size: 11px; font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent); text-transform: uppercase;
+    letter-spacing: 1px; white-space: nowrap;
+  }
+  .bar-outer { background: var(--border); border-radius: 30px; height: 8px; }
+  .bar-inner { background: linear-gradient(90deg, var(--accent), #a78bfa); height: 8px; border-radius: 30px; width: 0%; transition: width 0.8s ease; }
+  .progress-pct {
+    font-size: 12px; font-family: 'JetBrains Mono', monospace;
+    color: var(--accent); white-space: nowrap; min-width: 36px; text-align: right;
+  }
+
+  .progress-subjects {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 8px;
+  }
+  .subj-row {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .subj-dot {
+    width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0;
+  }
+  .subj-label {
+    font-size: 10.5px; font-family: 'JetBrains Mono', monospace;
+    color: var(--muted); white-space: nowrap; min-width: 130px;
+    overflow: hidden; text-overflow: ellipsis;
+  }
+  .subj-bar-outer {
+    flex: 1; background: var(--border); border-radius: 20px; height: 5px; min-width: 40px;
+  }
+  .subj-bar-inner {
+    height: 5px; border-radius: 20px; width: 0%;
+    transition: width 0.8s ease;
+  }
+  .subj-pct {
+    font-size: 10px; font-family: 'JetBrains Mono', monospace;
+    color: var(--muted); min-width: 28px; text-align: right;
+  }
+
+  /* ── LEGEND ── */
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    justify-content: center;
+    background: var(--surface);
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+  /* ── CONTAINER ── */
+  .container { max-width: 1060px; margin: 0 auto; padding: 24px 16px 60px; }
+
+  /* ── PHASE TITLE ── */
+  .phase-title {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 15px; font-weight: 700;
+    color: var(--accent);
+    margin: 36px 0 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .phase-title span { color: var(--muted); font-size: 12px; }
+
+  /* ── GRID ── */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 12px; }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+  }
+  .card:hover {
+    border-color: #3a4468;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  }
+
+  .card-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .card-num {
+    font-size: 17px; font-weight: 800;
+    min-width: 34px; text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    color: rgba(255,255,255,0.9);
+  }
+  .card-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: rgba(255,255,255,0.85); }
+
+  .card-body { padding: 11px 14px; }
+
+  .row {
+    display: flex; align-items: flex-start; gap: 8px;
+    margin-bottom: 7px; font-size: 12.5px; line-height: 1.5;
+    color: #c8cedf;
+  }
+  .row:last-child { margin-bottom: 0; }
+
+  .check {
+    width: 15px; height: 15px;
+    border: 1.5px solid #3a4468; border-radius: 3px;
+    flex-shrink: 0; margin-top: 2px; cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .check.done { background: var(--accent); border-color: var(--accent); }
+
+  .tag {
+    font-size: 9.5px; font-weight: 700;
+    padding: 2px 6px; border-radius: 3px;
+    white-space: nowrap; flex-shrink: 0;
+    margin-top: 2px; letter-spacing: 0.4px;
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+  }
+  .tag-teoria  { background: var(--tag-teoria);  color: var(--tag-ttext); }
+  .tag-revisao { background: var(--tag-revisao); color: var(--tag-rtext); }
+  .tag-lei     { background: var(--tag-lei);     color: var(--tag-ltext); }
+  .tag-questoes{ background: var(--tag-quest);   color: var(--tag-qtext); }
+  .tag-redacao { background: var(--tag-red);     color: var(--tag-redtext); }
+
+  /* Subject header colors (dark tinted) */
+  .hdr-port  { background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%); }
+  .hdr-rlm   { background: linear-gradient(135deg, #6d28d9 0%, #5b21b6 100%); }
+  .hdr-const { background: linear-gradient(135deg, #15803d 0%, #166534 100%); }
+  .hdr-adm   { background: linear-gradient(135deg, #c2410c 0%, #9a3412 100%); }
+  .hdr-pen   { background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%); }
+  .hdr-civ   { background: linear-gradient(135deg, #0e7490 0%, #155e75 100%); }
+  .hdr-pciv  { background: linear-gradient(135deg, #0f766e 0%, #0d5e57 100%); }
+  .hdr-ppenal{ background: linear-gradient(135deg, #9f1239 0%, #881337 100%); }
+  .hdr-def   { background: linear-gradient(135deg, #334155 0%, #1e293b 100%); }
+  .hdr-red   { background: linear-gradient(135deg, #7e22ce 0%, #6b21a8 100%); }
+
+  /* ── NOTICE BOX ── */
+  .notice {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin-top: 30px;
+    font-size: 13px;
+    line-height: 1.75;
+    color: #b0b8d0;
+  }
+  .notice h2 { font-size: 14px; color: var(--text); margin-bottom: 10px; }
+  .notice strong { color: var(--accent); }
+
+  footer {
+    text-align: center; font-size: 11px;
+    color: var(--muted); padding: 20px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  @media (max-width: 600px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  @media print {
+    body { background: #fff !important; color: #111 !important; }
+    .card { background: #fff !important; border: 1px solid #ddd !important; color: #111 !important; break-inside: avoid; }
+    .card-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .bar-outer, .progress-wrap, .check { display: none; }
+    header { background: #0d1b4b !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .row { color: #333 !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📋 Plano de Estudos – <span>TJCE</span></h1>
+  <p>Técnico Judiciário – Área Judiciária &nbsp;|&nbsp; Cargo I09 &nbsp;|&nbsp; Banca: FCC</p>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-overall-row">
+    <span class="progress-overall-label">📋 EDITAL COMPLETO</span>
+    <div class="bar-outer" style="flex:1"><div class="bar-inner" id="bar"></div></div>
+    <span class="progress-pct" id="pct">0%</span>
+  </div>
+  <div class="progress-subjects" id="progress-subjects"></div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#2563eb"></div>Português</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#7c3aed"></div>RLM</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#16a34a"></div>Dir. Constitucional</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#ea580c"></div>Dir. Administrativo</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#b91c1c"></div>Dir. Penal</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#0891b2"></div>Dir. Civil</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#0d9488"></div>Dir. Processual Civil</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#9f1239"></div>Dir. Processual Penal</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#334155"></div>Dir. PcD / Leg. Estadual</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#7e22ce"></div>Redação</div>
+</div>
+
+<div class="container">
+
+<!-- ══════════════════════════════════════════════
+     FASE 1 – FUNDAMENTOS (Metas 01–35)
+══════════════════════════════════════════════ -->
+<div class="phase-title">🚀 Fase 1 — Fundamentos <span>Metas 01–35</span></div>
+<div class="grid">
+
+  <div class="card">
+    <div class="card-header hdr-port"><div class="card-num">01</div><div class="card-title">Português</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Ortografia e Acentuação</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões sobre ortografia e acentuação</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-const"><div class="card-num">02</div><div class="card-title">Dir. Constitucional</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Princípios fundamentais (Art. 1º a 4º da CF/88)</div>
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Normas de eficácia plena, contida e limitada; normas programáticas</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">03</div><div class="card-title">Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Normas Fundamentais do CPC; Aplicação das normas processuais</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 1º a 15 do CPC</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Foque na teoria</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-rlm"><div class="card-num">04</div><div class="card-title">RLM</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Estruturas Lógicas: Proposições — definições, conceitos, princípios; simples e compostas</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">05</div><div class="card-title">Dir. Processual Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Introdução ao Processo Penal — Princípios processuais; Sistemas processuais</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-civ"><div class="card-num">06</div><div class="card-title">Dir. Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>LINDB — Eficácia da lei no tempo e no espaço; formas de expressão do Direito; interpretação e integração das normas</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>15 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pen"><div class="card-num">07</div><div class="card-title">Dir. Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Princípios aplicáveis ao Direito Penal; Aplicação da lei penal — lei penal no tempo e no espaço; irretroatividade; analogia</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">08</div><div class="card-title">Dir. Administrativo</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Princípios da Administração Pública; Regime jurídico-administrativo</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-port"><div class="card-num">09</div><div class="card-title">Português</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Ortografia e Acentuação</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">10</div><div class="card-title">Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Jurisdição e Ação; Limites da Jurisdição Nacional e Cooperação Internacional</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 16 a 41 do CPC</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Foque na teoria</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-rlm"><div class="card-num">11</div><div class="card-title">RLM</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Tabela verdade; Negações e Equivalências Lógicas</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-const"><div class="card-num">12</div><div class="card-title">Dir. Constitucional</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Teoria Geral dos Direitos Fundamentais</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-civ"><div class="card-num">13</div><div class="card-title">Dir. Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Pessoas naturais: personalidade, capacidade e direitos da personalidade. Ausência</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">14</div><div class="card-title">Dir. Processual Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Juiz das garantias; Aplicação e interpretação da lei processual penal</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 1º a 3º-F do CPP</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pen"><div class="card-num">15</div><div class="card-title">Dir. Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Ilicitude; Culpabilidade; Concurso de Pessoas; Tempo e lugar do crime</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">16</div><div class="card-title">Dir. Administrativo</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Princípios da Administração; Regime jurídico-administrativo</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-port"><div class="card-num">17</div><div class="card-title">Português</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Classes de palavras: substantivo, adjetivos, pronomes, artigos, numerais, advérbios, interjeições e colocação pronominal</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Foque na teoria</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">18</div><div class="card-title">Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Da Capacidade Processual; Deveres das Partes e de seus Procuradores</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 70 a 102 do CPC</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Foque na teoria</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-civ"><div class="card-num">19</div><div class="card-title">Dir. Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Pessoas jurídicas: conceito, classificação, dissolução, desconsideração. Associações. Fundações. Domicílio</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-rlm"><div class="card-num">20</div><div class="card-title">RLM</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Diagramas Lógicos; Leis de De Morgan</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-const"><div class="card-num">21</div><div class="card-title">Dir. Constitucional</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Direitos e deveres individuais e coletivos</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 5º da CF/88</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">22</div><div class="card-title">Dir. Processual Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Inquérito Policial</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 4º a 23 do CPP</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pen"><div class="card-num">23</div><div class="card-title">Dir. Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Penas: espécies e cominação; Ação penal; Punibilidade e extinção; Prescrição</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">24</div><div class="card-title">Dir. Administrativo</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Estado, governo e Administração Pública</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-port"><div class="card-num">25</div><div class="card-title">Português</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Classes de palavras (substantivo, adjetivo, pronome, artigo, numeral, advérbio, interjeição, colocação pronominal)</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-red"><div class="card-num">26</div><div class="card-title">Redação</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Estrutura da redação dissertativo-argumentativa: introdução, desenvolvimento e conclusão. Como identificar e delimitar o tema</div>
+      <div class="row"><span class="tag tag-redacao">REDAÇÃO</span>Escreva 1 texto dissertativo sobre um tema social amplo (ex.: acesso à justiça no Brasil). Não se preocupe com a nota — apenas escreva</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-civ"><div class="card-num">27</div><div class="card-title">Dir. Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Bens: conceito, classificação, bens reciprocamente considerados, bens públicos</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">28</div><div class="card-title">Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Capacidade processual; Deveres das Partes e de seus Procuradores</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 70 a 102 do CPC</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-rlm"><div class="card-num">29</div><div class="card-title">RLM</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Proposições: tautologia, contradição e contingência; Diagramas Lógicos</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-const"><div class="card-num">30</div><div class="card-title">Dir. Constitucional</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Direitos e deveres individuais e coletivos</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 5º da CF/88</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">31</div><div class="card-title">Dir. Processual Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Inquérito Policial</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 4º a 23 do CPP</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pen"><div class="card-num">32</div><div class="card-title">Dir. Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Crimes contra a pessoa (homicídio, lesão corporal, periclitação, calúnia, injúria, difamação)</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 121 a 154-B do CP</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-port"><div class="card-num">33</div><div class="card-title">Português</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Classes de palavras: Preposição e Conjunção (conectivos)</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">34</div><div class="card-title">Dir. Administrativo</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Organização administrativa — Centralização, descentralização, concentração e desconcentração; órgãos públicos; Adm. Direta</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-civ"><div class="card-num">35</div><div class="card-title">Dir. Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Fatos jurídicos; Negócio jurídico: conceito, requisitos, classificação, princípios, representação, condição, termo e encargo</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+</div><!-- /grid fase 1 -->
+
+
+<!-- ══════════════════════════════════════════════
+     FASE 2 – CONSOLIDAÇÃO (Metas 36–70)
+══════════════════════════════════════════════ -->
+<div class="phase-title">📚 Fase 2 — Consolidação <span>Metas 36–70</span></div>
+<div class="grid">
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">36</div><div class="card-title">Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Dos Procuradores; Da Sucessão das Partes e dos Procuradores; Litisconsórcio</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 103 a 118 do CPC</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-rlm"><div class="card-num">37</div><div class="card-title">RLM</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Leis de De Morgan (aprofundamento)</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-const"><div class="card-num">38</div><div class="card-title">Dir. Constitucional</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Direitos Sociais</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 6º a 11 da CF/88</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">39</div><div class="card-title">Dir. Processual Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Ação Penal; Ação civil ex delicto</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 24 a 68 do CPP</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pen"><div class="card-num">40</div><div class="card-title">Dir. Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Crimes contra o Patrimônio (furto, roubo, extorsão, estelionato, receptação, dano)</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 155 a 183 do CP</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-civ"><div class="card-num">41</div><div class="card-title">Dir. Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Defeitos do negócio jurídico; Invalidade do negócio jurídico; Prescrição e Decadência</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">42</div><div class="card-title">Dir. Administrativo</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Organização administrativa — Administração Indireta</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-port"><div class="card-num">43</div><div class="card-title">Português</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Classes de palavras: Verbos (flexão, vozes, correlação de tempos e modos verbais)</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Foque na teoria</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">44</div><div class="card-title">Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Sucessão das Partes e dos Procuradores; Litisconsórcio</div>
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Da Intervenção de Terceiros</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 119 a 138 do CPC</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-rlm"><div class="card-num">45</div><div class="card-title">RLM</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Estruturas lógicas: tabela verdade, negações, equivalências, diagramas</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-const"><div class="card-num">46</div><div class="card-title">Dir. Constitucional</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Direitos de Nacionalidade</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 12 e 13 da CF/88</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">47</div><div class="card-title">Dir. Processual Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Jurisdição e Competência</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 69 a 91 do CPP</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pen"><div class="card-num">48</div><div class="card-title">Dir. Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Crimes contra a fé pública (falsidade de documentos, moeda); Crimes contra a Administração Pública (peculato, concussão, corrupção ativa e passiva)</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 289 a 311 e 312 a 359-H do CP</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-civ"><div class="card-num">49</div><div class="card-title">Dir. Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Direito das Obrigações: modalidades, obrigações de dar, fazer, não fazer, alternativas, divisíveis, indivisíveis e solidárias</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">50</div><div class="card-title">Dir. Administrativo</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Poderes administrativos: hierárquico, disciplinar, normativo, de polícia, discricionário</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-port"><div class="card-num">51</div><div class="card-title">Português</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Classes de palavras: Verbos</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">52</div><div class="card-title">Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Dos Juízes e dos Auxiliares da Justiça</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 139 a 175 do CPC</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Foque na teoria</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-red"><div class="card-num">53</div><div class="card-title">Redação</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Como construir um parágrafo dissertativo: tópico frasal, desenvolvimento e fechamento. Coesão e coerência textual</div>
+      <div class="row"><span class="tag tag-redacao">REDAÇÃO</span>Escreva 1 redação sobre um tema jurídico-social (ex.: eficiência do sistema judiciário). Foque em parágrafos bem estruturados</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-const"><div class="card-num">54</div><div class="card-title">Dir. Constitucional</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Direitos Políticos; Partidos Políticos</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 14 a 17 da CF/88</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">55</div><div class="card-title">Dir. Processual Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Jurisdição e Competência</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 69 a 91 do CPP</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pen"><div class="card-num">56</div><div class="card-title">Dir. Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Crimes contra a dignidade sexual; Crimes de abuso de autoridade (Lei 13.869/2019)</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Lei nº 13.869/2019 (abuso de autoridade)</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-civ"><div class="card-num">57</div><div class="card-title">Dir. Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Transmissão das Obrigações; Adimplemento e extinção das obrigações (pagamento, consignação, sub-rogação, dação, novação, compensação, confusão, remissão)</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">58</div><div class="card-title">Dir. Administrativo</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Ato administrativo: conceito, características, atributos, requisitos, classificação, extinção, revogação, invalidação</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-port"><div class="card-num">59</div><div class="card-title">Português</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Sintaxe: Termos essenciais da oração — Sujeito e Predicado</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">60</div><div class="card-title">Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Juízes e Auxiliares da Justiça</div>
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>MP, Advocacia Pública, Defensoria Pública (no processo)</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 176 a 187 do CPC</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-rlm"><div class="card-num">61</div><div class="card-title">RLM</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Lógica de primeira ordem (quantificadores)</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-const"><div class="card-num">62</div><div class="card-title">Dir. Constitucional</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Organização político-administrativa: Estado federal, União, estados, DF, municípios e territórios</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 18 a 36 da CF/88</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">63</div><div class="card-title">Dir. Processual Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Questões e processos incidentes</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 92 a 154 do CPP</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pen"><div class="card-num">64</div><div class="card-title">Dir. Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Lavagem de dinheiro (Lei 9.613/1998); Crimes de responsabilidade (Lei 1.079/1950); Crimes contra as finanças públicas (Lei 10.028/2000); LC 101/2000</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-civ"><div class="card-num">65</div><div class="card-title">Dir. Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Inadimplemento das obrigações: mora, perdas e danos, juros, cláusula penal, arras</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">66</div><div class="card-title">Dir. Administrativo</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Ato administrativo; Poderes da Administração</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-port"><div class="card-num">67</div><div class="card-title">Português</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Sintaxe: Termos integrantes — OD, OI, complemento nominal, agente da passiva</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">68</div><div class="card-title">Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Forma dos atos processuais</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 188 a 211 do CPC</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-rlm"><div class="card-num">69</div><div class="card-title">RLM</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Análise Combinatória: introdução, princípio fundamental de contagem, fatorial</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Foque na teoria</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-const"><div class="card-num">70</div><div class="card-title">Dir. Constitucional</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Administração Pública: disposições gerais; servidores públicos</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 37 a 41 da CF/88</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+</div><!-- /grid fase 2 -->
+
+
+<!-- ══════════════════════════════════════════════
+     FASE 3 – APROFUNDAMENTO I (Metas 71–110)
+══════════════════════════════════════════════ -->
+<div class="phase-title">⚙️ Fase 3 — Aprofundamento I <span>Metas 71–110</span></div>
+<div class="grid">
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">71</div><div class="card-title">Dir. Processual Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Prisão em flagrante</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 301 a 310 do CPP</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-civ"><div class="card-num">72</div><div class="card-title">Dir. Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Contratos em geral: conceito, classificação, princípios, formação, extinção</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pen"><div class="card-num">73</div><div class="card-title">Dir. Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Crimes contra a pessoa; Crimes contra o patrimônio</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">74</div><div class="card-title">Dir. Administrativo</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Responsabilidade civil do Estado</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-port"><div class="card-num">75</div><div class="card-title">Português</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Sintaxe: Termos acessórios — adjunto adverbial, adjunto adnominal e aposto</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">76</div><div class="card-title">Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Tempo e Lugar dos Atos Processuais; Prazos; Preclusão</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 212 a 235 do CPC</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-rlm"><div class="card-num">77</div><div class="card-title">RLM</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Análise Combinatória: permutação, arranjo, combinação</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-const"><div class="card-num">78</div><div class="card-title">Dir. Constitucional</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Poder Judiciário: disposições gerais, STF, CNJ, STJ</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 92 a 105 da CF/88</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">79</div><div class="card-title">Dir. Processual Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Prisão preventiva</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 311 a 316 do CPP</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-civ"><div class="card-num">80</div><div class="card-title">Dir. Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Contratos em espécie: compra e venda, doação, locação, comodato, mútuo, mandato, prestação de serviços, empreitada, depósito</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-red"><div class="card-num">81</div><div class="card-title">Redação</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Argumentação e fundamentação: como construir tese, apresentar argumentos e refutar; uso de conectivos e operadores argumentativos</div>
+      <div class="row"><span class="tag tag-redacao">REDAÇÃO</span>Escreva 1 redação com tema relacionado ao Poder Judiciário ou acesso à Justiça. Revise o uso de conectivos</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">82</div><div class="card-title">Dir. Administrativo</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Responsabilidade civil do Estado</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-port"><div class="card-num">83</div><div class="card-title">Português</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Sintaxe: termos essenciais, integrantes e acessórios da oração</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">84</div><div class="card-title">Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Comunicação dos atos processuais: citação, cartas, intimações</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 236 a 275 do CPC</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-rlm"><div class="card-num">85</div><div class="card-title">RLM</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Probabilidade</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Foque na teoria</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-const"><div class="card-num">86</div><div class="card-title">Dir. Constitucional</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Poder Judiciário: Tribunais e Juízes dos estados; TST, TRT, Juízes do Trabalho; CSJT</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 106 a 126 da CF/88</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">87</div><div class="card-title">Dir. Processual Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Prisão temporária; Prisão domiciliar; Medidas cautelares e Liberdade provisória</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Lei nº 7.960/1989; Art. 317 a 350 do CPP</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-civ"><div class="card-num">88</div><div class="card-title">Dir. Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Contratos: seguro, fiança, transação, alienação fiduciária, leasing; Atos unilaterais; Responsabilidade civil</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">89</div><div class="card-title">Dir. Administrativo</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Processo administrativo (Lei nº 9.784/1999)</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 1º a 70 da Lei 9.784/1999</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Foque na teoria</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-port"><div class="card-num">90</div><div class="card-title">Português</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Concordância verbal e nominal</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">91</div><div class="card-title">Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Nulidades; Distribuição e registro; Valor da causa</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 276 a 293 do CPC</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-rlm"><div class="card-num">92</div><div class="card-title">RLM</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Probabilidade</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-const"><div class="card-num">93</div><div class="card-title">Dir. Constitucional</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Poder Judiciário (revisão completa)</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 92 a 126 da CF/88</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">94</div><div class="card-title">Dir. Processual Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Prisões: flagrante, preventiva, temporária, domiciliar e medidas cautelares</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 301 a 350 do CPP + Lei 7.960/1989</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-civ"><div class="card-num">95</div><div class="card-title">Dir. Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Direito das Coisas: Posse — conceito, classificação, aquisição, efeitos e perda</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">96</div><div class="card-title">Dir. Administrativo</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Processo administrativo (Lei 9.784/1999)</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-port"><div class="card-num">97</div><div class="card-title">Português</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Concordância verbal e nominal</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">98</div><div class="card-title">Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Tutela provisória: conceito, princípios, requisitos; tutelas de urgência e evidência</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 294 a 311 do CPC</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-rlm"><div class="card-num">99</div><div class="card-title">RLM</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Operações com conjuntos</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-const"><div class="card-num">100</div><div class="card-title">Dir. Constitucional</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Poder Legislativo: estrutura, funcionamento, atribuições e processo legislativo</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 44 a 75 da CF/88</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-red"><div class="card-num">101</div><div class="card-title">Redação</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Emprego do sinal indicativo de crase, pontuação e concordância na redação formal. Adequação ao nível formal da linguagem</div>
+      <div class="row"><span class="tag tag-redacao">REDAÇÃO</span>Escreva 1 redação com tema de política pública (ex.: combate à corrupção, eficiência administrativa). Revise crase e pontuação</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">102</div><div class="card-title">Dir. Processual Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Provas: disposições gerais, modalidades, princípios, ônus</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 155 a 196 do CPP</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-civ"><div class="card-num">103</div><div class="card-title">Dir. Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Direitos Reais: propriedade (aquisição imóvel e móvel, perda, vizinhança, condomínio); superfície, servidões, usufruto, uso, habitação</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">104</div><div class="card-title">Dir. Administrativo</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Agentes públicos: cargo, emprego e função; provimento; Lei 8.112/1990</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-port"><div class="card-num">105</div><div class="card-title">Português</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Regência verbal e nominal</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">106</div><div class="card-title">Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Tutela provisória</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 294 a 311 do CPC</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-rlm"><div class="card-num">107</div><div class="card-title">RLM</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Operações com conjuntos</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-const"><div class="card-num">108</div><div class="card-title">Dir. Constitucional</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Poder Legislativo: processo legislativo; fiscalização contábil, financeira e orçamentária</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 59 a 75 da CF/88</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">109</div><div class="card-title">Dir. Processual Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Provas Parte 2: exame, depoimento pessoal, confissão, documentos, perícia, inspeção</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 197 a 250 do CPP</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-civ"><div class="card-num">110</div><div class="card-title">Dir. Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Direito de Família: casamento (princípios, capacidade, impedimentos, invalidade, dissolução), relações de parentesco</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+</div><!-- /grid fase 3 -->
+
+
+<!-- ══════════════════════════════════════════════
+     FASE 4 – APROFUNDAMENTO II (Metas 111–150)
+══════════════════════════════════════════════ -->
+<div class="phase-title">🔬 Fase 4 — Aprofundamento II <span>Metas 111–150</span></div>
+<div class="grid">
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">111</div><div class="card-title">Dir. Administrativo</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Agentes públicos; Lei 8.112/1990</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-port"><div class="card-num">112</div><div class="card-title">Português</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Regência verbal e nominal</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">113</div><div class="card-title">Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Formação, suspensão e extinção do processo</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 312 a 317 do CPC</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-rlm"><div class="card-num">114</div><div class="card-title">RLM</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Lógica de argumentação: analogias, inferências, deduções e conclusões</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-const"><div class="card-num">115</div><div class="card-title">Dir. Constitucional</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Poder Executivo: Presidente, Vice-presidente; atribuições e responsabilidades</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 76 a 91 da CF/88</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">116</div><div class="card-title">Dir. Processual Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Provas (revisão geral)</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 155 a 250 do CPP</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-civ"><div class="card-num">117</div><div class="card-title">Dir. Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Direito de Família: regimes de bens; alimentos; bem de família; união estável; tutela, curatela e tomada de decisão apoiada</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">118</div><div class="card-title">Dir. Administrativo</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Lei de Improbidade Administrativa (Lei 8.429/1992, com redação da Lei 14.230/2021)</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-port"><div class="card-num">119</div><div class="card-title">Português</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Emprego do sinal indicativo de crase</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">120</div><div class="card-title">Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Do Procedimento Comum: petição inicial, pedido, despacho, improcedência liminar</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 318 a 346 do CPC</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Foque na teoria</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-rlm"><div class="card-num">121</div><div class="card-title">RLM</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Lógica de argumentação</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-const"><div class="card-num">122</div><div class="card-title">Dir. Constitucional</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Poder Executivo</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 76 a 91 da CF/88</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">123</div><div class="card-title">Dir. Processual Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Processo Comum: Da Instrução Criminal; Tribunal do Júri (acusação, pronúncia, plenário)</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 394 a 497 do CPP</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Foque na teoria</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-red"><div class="card-num">124</div><div class="card-title">Redação</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Reescrita de frases e parágrafos: significação das palavras, substituição de trechos, reorganização de orações, adequação ao gênero textual</div>
+      <div class="row"><span class="tag tag-redacao">REDAÇÃO</span>Escreva 1 redação sobre tema da atualidade com viés jurídico. Reescreva ao menos 1 parágrafo usando vocabulário mais preciso</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-civ"><div class="card-num">125</div><div class="card-title">Dir. Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Direito das Sucessões: sucessão em geral, herança, vocação hereditária, aceitação e renúncia, excluídos</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">126</div><div class="card-title">Dir. Administrativo</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Improbidade Administrativa</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-port"><div class="card-num">127</div><div class="card-title">Português</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Emprego do sinal indicativo de crase</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">128</div><div class="card-title">Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Do Procedimento Comum: resposta do réu, contestação, reconvenção, revelia</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 348 a 368 do CPC</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-rlm"><div class="card-num">129</div><div class="card-title">RLM</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Raciocínio lógico envolvendo problemas aritméticos, geométricos e matriciais</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Foque na teoria</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-const"><div class="card-num">130</div><div class="card-title">Dir. Constitucional</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Funções essenciais à Justiça: Ministério Público, Advocacia Pública, Advocacia, Defensoria Pública</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 127 a 135 da CF/88</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">131</div><div class="card-title">Dir. Processual Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Instrução Criminal; Tribunal do Júri</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 429 a 497 do CPP</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-civ"><div class="card-num">132</div><div class="card-title">Dir. Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Direito das Sucessões: sucessão legítima, testamentária, inventário e partilha; legislação especial civil</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Lei 8.009/90, Lei 8.245/91, Lei 8.078/90 (principais)</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">133</div><div class="card-title">Dir. Administrativo</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Licitações e Contratos Administrativos (Lei 14.133/2021) — Âmbito, definições, agentes, processo e modalidades</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 1º a 71 da Lei 14.133/2021</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Foque na teoria</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-port"><div class="card-num">134</div><div class="card-title">Português</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Relações de coordenação entre orações e entre termos da oração</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">135</div><div class="card-title">Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Provas: disposições gerais, ônus, modalidades (ata notarial, depoimento, confissão, documento, testemunhal, pericial)</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 369 a 484 do CPC</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-rlm"><div class="card-num">136</div><div class="card-title">RLM</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Raciocínio aritmético, geométrico e matricial</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-const"><div class="card-num">137</div><div class="card-title">Dir. Constitucional</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Controle de constitucionalidade: difuso e concentrado; ADI, ADC, ADPF</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">138</div><div class="card-title">Dir. Processual Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Sujeitos do processo; Citações e intimações</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 251 a 281 + Art. 351 a 372 do CPP</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-civ"><div class="card-num">139</div><div class="card-title">Dir. Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Revisão geral: LINDB, pessoas, bens, negócio jurídico, prescrição, obrigações</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Súmulas vinculantes e Temas Repetitivos do STJ em matéria civil</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">140</div><div class="card-title">Dir. Administrativo</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Licitações e Contratos (Lei 14.133/2021) — Fases da licitação, contratos, sanções, crimes</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 72 a 194 da Lei 14.133/2021</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-port"><div class="card-num">141</div><div class="card-title">Português</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Relações de subordinação: período composto; orações subordinadas substantivas, adjetivas e adverbiais</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">142</div><div class="card-title">Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Sentença e coisa julgada; Liquidação de sentença</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 485 a 512 do CPC</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-rlm"><div class="card-num">143</div><div class="card-title">RLM</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Noções de Estatística: medidas de tendência central (moda, mediana, média) e de dispersão; gráficos e tabelas</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-const"><div class="card-num">144</div><div class="card-title">Dir. Constitucional</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Ordem Social: Seguridade Social, Saúde, Previdência Social, Assistência Social</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 193 a 204 da CF/88</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">145</div><div class="card-title">Dir. Processual Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Nulidades; Recursos em geral</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 563 a 667 do CPP</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-civ"><div class="card-num">146</div><div class="card-title">Dir. Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Revisão geral: contratos, responsabilidade civil, direito das coisas, família e sucessões</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>30 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">147</div><div class="card-title">Dir. Administrativo</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Serviço público: conceito, classificação, princípios, concessão e permissão (Lei 8.987/1995)</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Lei 8.987/1995</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-red"><div class="card-num">148</div><div class="card-title">Redação</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Domínio dos mecanismos de coesão textual: referenciação, substituição, repetição, conectores e sequenciação. Reconhecimento de tipos e gêneros textuais</div>
+      <div class="row"><span class="tag tag-redacao">REDAÇÃO</span>Escreva 1 redação sob condições de prova (60 min) com tema livre. Avalie o uso de elementos coesivos</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-port"><div class="card-num">149</div><div class="card-title">Português</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Compreensão e interpretação de textos de gêneros variados; denotação e conotação; intertextualidade; figuras de linguagem</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">150</div><div class="card-title">Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Do Cumprimento da sentença</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 513 a 538 do CPC</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+</div><!-- /grid fase 4 -->
+
+
+<!-- ══════════════════════════════════════════════
+     FASE 5 – LEGISLAÇÃO ESPECIAL E EXECUÇÃO (Metas 151–175)
+══════════════════════════════════════════════ -->
+<div class="phase-title">⚖️ Fase 5 — Legislação Especial &amp; Execução <span>Metas 151–175</span></div>
+<div class="grid">
+
+  <div class="card">
+    <div class="card-header hdr-rlm"><div class="card-num">151</div><div class="card-title">RLM</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Noções básicas de proporcionalidade e porcentagem: regra de três simples, cálculos de porcentagem, acréscimos e descontos</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-const"><div class="card-num">152</div><div class="card-title">Dir. Constitucional</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Ordem Social: Família, criança, adolescente, jovem e idoso; disposições finais</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 226 a 232 da CF/88</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">153</div><div class="card-title">Dir. Processual Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Recursos em geral</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 574 a 667 do CPP</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">154</div><div class="card-title">Dir. Administrativo</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Controle da Administração Pública: classificações, controle interno e externo, TCU, poder judiciário</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">155</div><div class="card-title">Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Processo de execução: princípios, partes, competência, penhora, avaliação, expropriação</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 771 a 925 do CPC</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Foque na teoria</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">156</div><div class="card-title">Dir. Processual Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Habeas corpus e seu processo</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 647 a 667 do CPP</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-port"><div class="card-num">157</div><div class="card-title">Português</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Compreensão e interpretação de textos; discurso direto, indireto e indireto livre</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">158</div><div class="card-title">Dir. Administrativo</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Controle da Administração Pública</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">159</div><div class="card-title">Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Processo de execução</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 771 a 925 do CPC</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">160</div><div class="card-title">Dir. Processual Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Normas processuais da Lei de Execução Penal (Lei 7.210/1984)</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 1º a 204 da LEP</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-rlm"><div class="card-num">161</div><div class="card-title">RLM</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Estatística; Porcentagem e proporcionalidade</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-const"><div class="card-num">162</div><div class="card-title">Dir. Constitucional</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Revisão geral: princípios, direitos fundamentais, organização do Estado, Poderes, controle de constitucionalidade</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>30 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">163</div><div class="card-title">Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Procedimentos Especiais (Parte 1): consignação em pagamento, exigir contas, possessórias, dissolução de sociedade, inventário</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 539 a 718 do CPC</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">164</div><div class="card-title">Dir. Processual Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Juizados Especiais Criminais (Lei 9.099/1995; Lei 10.259/2001)</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Lei 9.099/1995; Lei 10.259/2001</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">165</div><div class="card-title">Dir. Administrativo</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>LGPD (Lei 13.709/2018); Lei de Acesso à Informação (Lei 12.527/2011); LINDB e Administração Pública</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-red"><div class="card-num">166</div><div class="card-title">Redação</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Análise de coletânea textual: como usar os textos motivadores sem copiá-los. Proposta de intervenção: o que exige a banca FCC</div>
+      <div class="row"><span class="tag tag-redacao">REDAÇÃO</span>Escreva 1 redação simulando condição de prova real (tema + coletânea). Cronometre 60 min. Avalie a proposta de intervenção</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-port"><div class="card-num">167</div><div class="card-title">Português</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Morfossintaxe; Pontuação; Sinonímia e antonímia; Elementos estruturais e processos de formação de palavras</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">168</div><div class="card-title">Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Procedimentos Especiais (Parte 2): mandado de segurança, ação civil pública, ação popular, ações coletivas, usucapião, ação de improbidade</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Lei 12.016/2009; Lei 7.347/1985; Lei 4.717/1965</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">169</div><div class="card-title">Dir. Processual Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Lei do Crime Organizado (Lei 12.850/2013); Interceptação Telefônica (Lei 9.296/1996)</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Lei 12.850/2013; Lei 9.296/1996</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">170</div><div class="card-title">Dir. Administrativo</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Parcerias público-privadas (Lei 11.079/2004); Parcerias com terceiro setor (Lei 13.019/2014)</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">171</div><div class="card-title">Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Processos nos tribunais e meios de impugnação das decisões judiciais; Recursos</div>
+      <div class="row"><span class="tag tag-lei">LEI SECA</span>Art. 926 a 1.044 do CPC</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pen"><div class="card-num">172</div><div class="card-title">Dir. Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Revisão geral: princípios, aplicação da lei penal, ilicitude, culpabilidade, penas, ação penal, crimes contra a pessoa, patrimônio, fé pública, Adm. Pública, crimes especiais</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Súmulas do STF e STJ em matéria penal; 30 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-def"><div class="card-num">173</div><div class="card-title">Direitos PcD</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Lei nº 13.146/2015 (Estatuto da Pessoa com Deficiência); Lei nº 10.098/2000 (acessibilidade); Lei nº 10.048/2000 (prioridade de atendimento); Decreto 5.296/2004</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-def"><div class="card-num">174</div><div class="card-title">Direitos PcD</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Lei nº 8.899/1994 (transporte coletivo); Decreto 3.691/2000; Lei nº 8.160/1991 (símbolo auditivo); Lei nº 7.853/1989; Decreto 3.298/1999; Lei nº 11.126/2005</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-def"><div class="card-num">175</div><div class="card-title">Legislação Estadual</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Lei Estadual nº 9.826/1974 — Estatuto dos Funcionários Públicos Civis do Ceará e alterações</div>
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Legislação Previdenciária do Ceará</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+</div><!-- /grid fase 5 -->
+
+
+<!-- ══════════════════════════════════════════════
+     FASE 6 – REVISÃO GERAL E SIMULADOS (Metas 176–200)
+══════════════════════════════════════════════ -->
+<div class="phase-title">🏁 Fase 6 — Revisão Geral &amp; Simulados <span>Metas 176–200</span></div>
+<div class="grid">
+
+  <div class="card">
+    <div class="card-header hdr-def"><div class="card-num">176</div><div class="card-title">Legislação Estadual</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Lei Estadual nº 16.397/2017 — Lei de Organização Judiciária do Estado do Ceará</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-port"><div class="card-num">177</div><div class="card-title">Português — Revisão</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Morfossintaxe; Figuras de linguagem; Intertextualidade; Discurso direto, indireto e livre; Denotação e conotação; Pontuação</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>25 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-rlm"><div class="card-num">178</div><div class="card-title">RLM — Revisão Geral</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Revisão completa: lógica, tabela verdade, diagramas, probabilidade, combinatória, conjuntos, estatística, raciocínio aritmético e geométrico</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>30 questões variadas</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">179</div><div class="card-title">Dir. Administrativo — Revisão</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Revisão geral: princípios, organização, ato administrativo, poderes, responsabilidade, licitações, agentes públicos, controle e serviço público</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>30 questões variadas</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pen"><div class="card-num">180</div><div class="card-title">Dir. Penal — Revisão</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Revisão geral: princípios, aplicação da lei penal, penas, crimes em espécie, legislação especial penal</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>30 questões; Súmulas do STF e STJ em matéria penal</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-red"><div class="card-num">181</div><div class="card-title">Redação — Revisão</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Vícios de linguagem, desvios gramaticais, adequação ao nível formal. Revisão de redações anteriores</div>
+      <div class="row"><span class="tag tag-redacao">REDAÇÃO</span>Corrija e reescreva as redações das metas 26, 53, 81, 101, 124 e 148. Avalie evolução</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-const"><div class="card-num">182</div><div class="card-title">Dir. Constitucional — Revisão</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Revisão geral: princípios, direitos fundamentais, organização do Estado, Poderes, funções essenciais, Ordem Social, controle de constitucionalidade</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>30 questões variadas</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-civ"><div class="card-num">183</div><div class="card-title">Dir. Civil — Revisão</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Revisão geral: LINDB, pessoas, bens, negócio jurídico, obrigações, contratos, responsabilidade civil, direitos reais, família e sucessões</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Súmulas vinculantes e Temas Repetitivos STJ — matéria civil; 30 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">184</div><div class="card-title">Dir. Processual Civil — Revisão</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Revisão geral: normas fundamentais, jurisdição, partes, atos processuais, tutela provisória, procedimento, provas, sentença, cumprimento, execução, recursos</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Súmulas vinculantes e Temas Repetitivos STJ — matéria processual civil; 30 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">185</div><div class="card-title">Dir. Processual Penal — Revisão</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Revisão geral: inquérito, ação penal, jurisdição, provas, prisões, processo comum, tribunal do júri, recursos, habeas corpus, LEP, legislação especial</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Súmulas STF e STJ em matéria processual penal; 30 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-red"><div class="card-num">186</div><div class="card-title">Redação — Simulado</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Simulado de redação com tema oficial (tema de atualidade com viés jurídico ou social). Simule condição de prova FCC: leia coletânea, escreva em 60 min</div>
+      <div class="row"><span class="tag tag-redacao">REDAÇÃO</span>Autoavalie pelos critérios FCC: proposta de intervenção, coesão, argumentação, adequação linguística, pontuação, crase, concordância e regência</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-def"><div class="card-num">187</div><div class="card-title">Direitos PcD — Revisão</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Revisão geral: legislação de inclusão e acessibilidade (Lei 13.146, Lei 7.853, Lei 10.098, Lei 10.048, Lei 8.899, Lei 11.126)</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-port"><div class="card-num">188</div><div class="card-title">Simulado — Português</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Simulado temático: 30 questões cobrindo todo o conteúdo de Língua Portuguesa do edital (ortografia, morfossintaxe, concordância, regência, crase, pontuação, interpretação)</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Analise os erros e revise os tópicos com maior índice de falhas</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pen"><div class="card-num">189</div><div class="card-title">Simulado — Dir. Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Simulado temático: 30 questões cobrindo todo o conteúdo de Direito Penal do edital</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Analise os erros e revise os tópicos com maior índice de falhas</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-civ"><div class="card-num">190</div><div class="card-title">Simulado — Dir. Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Simulado temático: 30 questões cobrindo todo o conteúdo de Direito Civil do edital</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Analise os erros e revise os tópicos com maior índice de falhas</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">191</div><div class="card-title">Simulado — Dir. Administrativo</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Simulado temático: 40 questões cobrindo todo o conteúdo de Direito Administrativo do edital</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Analise os erros e revise os tópicos com maior índice de falhas</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-const"><div class="card-num">192</div><div class="card-title">Simulado — Dir. Constitucional</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Simulado temático: 40 questões cobrindo todo o conteúdo de Direito Constitucional do edital</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Analise os erros e revise os tópicos com maior índice de falhas</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-ppenal"><div class="card-num">193</div><div class="card-title">Simulado — Dir. Processual Penal</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Simulado temático: 40 questões cobrindo todo o conteúdo de Direito Processual Penal do edital</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Analise os erros e revise os tópicos com maior índice de falhas</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-pciv"><div class="card-num">194</div><div class="card-title">Simulado — Dir. Processual Civil</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Simulado temático: 40 questões cobrindo todo o conteúdo de Direito Processual Civil do edital</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Analise os erros e revise os tópicos com maior índice de falhas</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-rlm"><div class="card-num">195</div><div class="card-title">Simulado — RLM</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Simulado temático: 30 questões variadas de Raciocínio Lógico-Matemático (lógica, combinatória, probabilidade, conjuntos, estatística, porcentagem)</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Analise os erros e revise os tópicos com maior índice de falhas</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-red"><div class="card-num">196</div><div class="card-title">Redação — Simulado Final</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-teoria">TEORIA</span>Último simulado de redação: tema inédito + coletânea. Escreva em condições de prova (60 min). Peça a alguém para corrigir ou use critérios FCC para autoavaliação</div>
+      <div class="row"><span class="tag tag-redacao">REDAÇÃO</span>Avalie: introdução com tese clara, 2 argumentos desenvolvidos, proposta de intervenção detalhada, conclusão coesa, linguagem formal, sem erros graves</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-def"><div class="card-num">197</div><div class="card-title">Simulado — Leg. Estadual e PcD</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Simulado: 20 questões de legislação estadual (Lei 9.826/74, Lei 16.397/2017, previdência estadual) + 20 questões de direitos das pessoas com deficiência</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Analise os erros e revise os tópicos com maior índice de falhas</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-port"><div class="card-num">198</div><div class="card-title">Simulado Geral I</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Simulado completo de todas as disciplinas: 60 questões (Português + RLM + Constitucional + Administrativo + Civil + Penal + Processual Civil + Processual Penal + PcD/Leg. Estadual)</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>Identifique as disciplinas com maior índice de erro e foque na revisão</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-adm"><div class="card-num">199</div><div class="card-title">Revisão Focada — Pontos Fracos</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Com base no simulado anterior, revise intensivamente os 3 tópicos com maior índice de erro. Refaça questões específicas sobre esses tópicos</div>
+      <div class="row"><span class="tag tag-questoes">QUESTÕES</span>20 questões por tópico revisado</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header hdr-red"><div class="card-num">200</div><div class="card-title">Simulado Geral II + Redação</div></div>
+    <div class="card-body">
+      <div class="row"><span class="tag tag-revisao">REVISÃO</span>Simulado geral final: 60 questões de todas as disciplinas + 1 redação (60 min)</div>
+      <div class="row"><span class="tag tag-redacao">REDAÇÃO</span>Última preparação: trate como prova real. Controle o tempo, escreva sem consultas, avalie criticamente ao final</div>
+    </div>
+  </div>
+
+</div><!-- /grid fase 6 -->
+
+
+<div class="notice">
+  <h2>📌 Observações Importantes</h2>
+  Toda legislação e jurisprudência devem ser consideradas com as alterações vigentes até a data da publicação do Edital de Abertura de Inscrições.
+  Súmulas vinculantes e julgados com repercussão geral do STF e STJ em matéria civil, processual civil e processual penal integram o conteúdo exigível.
+  <br><br>
+  <strong>Informatica:</strong> não está listada no edital do cargo I09 — TJCE. Confirme o edital oficial antes de incluir no seu plano.
+  <br><br>
+  <strong>Redação:</strong> este plano inclui 8 metas de redação distribuídas progressivamente (metas 26, 53, 81, 101, 124, 148, 166, 181, 186, 196, 200), para desenvolver a habilidade escrita desde o início, não apenas no final.
+  <br><br>
+  <strong>Direito Civil e Direito Penal:</strong> incluídos conforme o edital do cargo I09 (Técnico Judiciário — Área Judiciária).
+  <br><br>
+  Plano elaborado com base no edital do TJCE — Técnico Judiciário I09, banca FCC.
+</div>
+
+</div><!-- /container -->
+
+<footer>Plano de Estudos TJCE — Técnico Judiciário I09 | 200 Metas | Banca FCC | Conteúdo conforme Edital</footer>
+
+<style>
+  /* ── SYNC PANEL ── */
+  #sync-panel {
+    position: fixed; bottom: 20px; right: 20px; z-index: 999;
+    display: flex; flex-direction: column; align-items: flex-end; gap: 8px;
+  }
+  #sync-btn {
+    background: var(--surface2); border: 1px solid var(--border);
+    color: var(--text); border-radius: 10px; padding: 9px 15px;
+    font-size: 12px; font-family: 'JetBrains Mono', monospace;
+    cursor: pointer; display: flex; align-items: center; gap: 7px;
+    transition: border-color 0.2s, background 0.2s;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  }
+  #sync-btn:hover { border-color: var(--accent); background: #1e2540; }
+  #sync-btn .dot {
+    width: 8px; height: 8px; border-radius: 50%; background: #475569;
+    transition: background 0.3s;
+  }
+  #sync-btn .dot.synced  { background: #22c55e; }
+  #sync-btn .dot.syncing { background: #f59e0b; animation: pulse 1s infinite; }
+  #sync-btn .dot.error   { background: #ef4444; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  #sync-modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 1000;
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+    align-items: center; justify-content: center;
+  }
+  #sync-modal-overlay.open { display: flex; }
+  #sync-modal {
+    background: #181c27; border: 1px solid #2e3554;
+    border-radius: 14px; padding: 28px; width: 90%; max-width: 480px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
+  #sync-modal h2 { font-size: 15px; color: #fff; margin-bottom: 6px; }
+  #sync-modal p  { font-size: 12px; color: #7a85a3; line-height: 1.7; margin-bottom: 16px; }
+  #sync-modal ol { font-size: 12px; color: #9aa3be; line-height: 1.9; padding-left: 18px; margin-bottom: 20px; }
+  #sync-modal ol a { color: var(--accent); }
+  #sync-modal label { font-size: 11px; color: #7a85a3; font-family: 'JetBrains Mono', monospace; display: block; margin-bottom: 5px; }
+  #sync-modal input {
+    width: 100%; background: #0f1117; border: 1px solid #2e3554;
+    color: #e8ecf5; border-radius: 7px; padding: 9px 12px;
+    font-size: 12px; font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 12px; outline: none;
+  }
+  #sync-modal input:focus { border-color: var(--accent); }
+  .modal-btns { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+  .modal-btns button {
+    padding: 8px 16px; border-radius: 7px; font-size: 12px;
+    font-family: 'JetBrains Mono', monospace; cursor: pointer; border: none;
+  }
+  #btn-save-config  { background: var(--accent); color: #fff; }
+  #btn-close-modal  { background: #1e2540; color: #9aa3be; border: 1px solid #2e3554; }
+  #btn-clear-config { background: #7f1d1d; color: #fca5a5; }
+  #sync-status-msg  { font-size: 11px; color: #7a85a3; font-family: 'JetBrains Mono', monospace; margin-top: 10px; min-height: 16px; text-align: center; }
+</style>
+
+<!-- SYNC BUTTON (fixed bottom-right) -->
+<div id="sync-panel">
+  <button id="sync-btn" onclick="openModal()">
+    <div class="dot" id="sync-dot"></div>
+    <span id="sync-label">☁ Sincronizar</span>
+  </button>
+</div>
+
+<!-- SYNC MODAL -->
+<div id="sync-modal-overlay">
+  <div id="sync-modal">
+    <h2>☁ Sincronização com GitHub Gist</h2>
+    <p>Seu progresso ficará salvo na nuvem e acessível de qualquer dispositivo — celular, tablet ou computador.</p>
+    <ol>
+      <li>Acesse <a href="https://github.com/settings/tokens/new" target="_blank">github.com/settings/tokens/new</a></li>
+      <li>Em <strong>Note</strong> escreva: <code>tjce-plano</code></li>
+      <li>Em <strong>Expiration</strong> escolha: <em>No expiration</em></li>
+      <li>Marque apenas: <strong>✅ gist</strong></li>
+      <li>Clique <strong>Generate token</strong> e copie o token</li>
+      <li>Cole abaixo e clique em <strong>Salvar e Conectar</strong></li>
+    </ol>
+    <label>Token do GitHub (começa com ghp_...)</label>
+    <input type="password" id="input-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxxxx" autocomplete="off" />
+    <label>ID do Gist (deixe vazio na primeira vez — será criado automaticamente)</label>
+    <input type="text" id="input-gist" placeholder="Ex: a1b2c3d4e5f6... (gerado automaticamente)" />
+    <div class="modal-btns">
+      <button id="btn-clear-config" onclick="clearConfig()">🗑 Desconectar</button>
+      <button id="btn-close-modal" onclick="closeModal()">Fechar</button>
+      <button id="btn-save-config" onclick="saveConfig()">Salvar e Conectar</button>
+    </div>
+    <div id="sync-status-msg"></div>
+  </div>
+</div>
+
+<script>
+  /* ══════════════════════════════
+     SUBJECTS CONFIG
+  ══════════════════════════════ */
+  const SUBJECTS = [
+    { key: 'hdr-port',   label: 'Português',            color: '#2563eb' },
+    { key: 'hdr-rlm',    label: 'RLM',                  color: '#7c3aed' },
+    { key: 'hdr-const',  label: 'Dir. Constitucional',  color: '#16a34a' },
+    { key: 'hdr-adm',    label: 'Dir. Administrativo',  color: '#ea580c' },
+    { key: 'hdr-pen',    label: 'Dir. Penal',            color: '#dc2626' },
+    { key: 'hdr-civ',    label: 'Dir. Civil',            color: '#0891b2' },
+    { key: 'hdr-pciv',   label: 'Dir. Processual Civil', color: '#0d9488' },
+    { key: 'hdr-ppenal', label: 'Dir. Processual Penal', color: '#9f1239' },
+    { key: 'hdr-def',    label: 'PcD / Leg. Estadual',  color: '#475569' },
+    { key: 'hdr-red',    label: 'Redação',               color: '#9333ea' },
+  ];
+
+  const GIST_FILENAME = 'tjce_plano_progresso.json';
+  let syncTimeout = null;
+
+  /* ══════════════════════════════
+     MODAL
+  ══════════════════════════════ */
+  function openModal() {
+    document.getElementById('input-token').value = localStorage.getItem('gh_token') || '';
+    document.getElementById('input-gist').value  = localStorage.getItem('gh_gist_id') || '';
+    document.getElementById('sync-status-msg').textContent = '';
+    document.getElementById('sync-modal-overlay').classList.add('open');
+  }
+  function closeModal() {
+    document.getElementById('sync-modal-overlay').classList.remove('open');
+  }
+  function saveConfig() {
+    const token  = document.getElementById('input-token').value.trim();
+    const gistId = document.getElementById('input-gist').value.trim();
+    if (!token) { setModalMsg('⚠ Cole seu token do GitHub.', '#f59e0b'); return; }
+    localStorage.setItem('gh_token', token);
+    if (gistId) localStorage.setItem('gh_gist_id', gistId);
+    setModalMsg('✅ Token salvo! Sincronizando...', '#22c55e');
+    setSyncStatus('syncing', 'Sincronizando...');
+    syncToGist(true).then(() => {
+      setModalMsg('✅ Conectado e sincronizado!', '#22c55e');
+      // update gist id field if newly created
+      document.getElementById('input-gist').value = localStorage.getItem('gh_gist_id') || '';
+    }).catch(e => setModalMsg('❌ Erro: ' + e.message, '#ef4444'));
+  }
+  function clearConfig() {
+    localStorage.removeItem('gh_token');
+    localStorage.removeItem('gh_gist_id');
+    document.getElementById('input-token').value = '';
+    document.getElementById('input-gist').value  = '';
+    setSyncStatus('offline', 'Desconectado');
+    setModalMsg('🗑 Desconectado. Progresso continua salvo localmente.', '#7a85a3');
+  }
+  function setModalMsg(msg, color) {
+    const el = document.getElementById('sync-status-msg');
+    el.textContent = msg;
+    el.style.color = color;
+  }
+
+  /* ══════════════════════════════
+     SYNC STATUS DOT
+  ══════════════════════════════ */
+  function setSyncStatus(state, label) {
+    const dot = document.getElementById('sync-dot');
+    const lbl = document.getElementById('sync-label');
+    dot.className = 'dot ' + state;
+    lbl.textContent = { synced: '☁ Sincronizado', syncing: '☁ Sincronizando...', error: '☁ Erro sync', offline: '☁ Sincronizar' }[state] || '☁ Sincronizar';
+  }
+
+  /* ══════════════════════════════
+     GITHUB GIST API
+  ══════════════════════════════ */
+  async function syncToGist(force = false) {
+    const token  = localStorage.getItem('gh_token');
+    if (!token) return;
+
+    setSyncStatus('syncing');
+    const doneIds = [...document.querySelectorAll('.check.done')].map(el => el.dataset.id);
+    const payload = JSON.stringify({ updated: new Date().toISOString(), done: doneIds });
+
+    const gistId = localStorage.getItem('gh_gist_id');
+
+    try {
+      let res;
+      if (gistId) {
+        // PATCH existing gist
+        res = await fetch(`https://api.github.com/gists/${gistId}`, {
+          method: 'PATCH',
+          headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ files: { [GIST_FILENAME]: { content: payload } } })
+        });
+      } else {
+        // POST new gist
+        res = await fetch('https://api.github.com/gists', {
+          method: 'POST',
+          headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            description: 'TJCE Plano de Estudos — Progresso',
+            public: false,
+            files: { [GIST_FILENAME]: { content: payload } }
+          })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          localStorage.setItem('gh_gist_id', data.id);
+        }
+      }
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      setSyncStatus('synced');
+    } catch(e) {
+      setSyncStatus('error');
+      throw e;
+    }
+  }
+
+  async function loadFromGist() {
+    const token  = localStorage.getItem('gh_token');
+    const gistId = localStorage.getItem('gh_gist_id');
+    if (!token || !gistId) return null;
+
+    setSyncStatus('syncing');
+    try {
+      const res = await fetch(`https://api.github.com/gists/${gistId}`, {
+        headers: { Authorization: `token ${token}` }
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      const file = data.files[GIST_FILENAME];
+      if (!file) return null;
+      const parsed = JSON.parse(file.content);
+      setSyncStatus('synced');
+      return parsed.done || [];
+    } catch(e) {
+      setSyncStatus('error');
+      return null;
+    }
+  }
+
+  /* debounce sync on checkbox change */
+  function schedulSync() {
+    clearTimeout(syncTimeout);
+    syncTimeout = setTimeout(() => syncToGist(), 2000);
+  }
+
+  /* ══════════════════════════════
+     PROGRESS BARS
+  ══════════════════════════════ */
+  function buildSubjectBars() {
+    const container = document.getElementById('progress-subjects');
+    SUBJECTS.forEach(s => {
+      const div = document.createElement('div');
+      div.className = 'subj-row';
+      div.innerHTML = `
+        <div class="subj-dot" style="background:${s.color}"></div>
+        <span class="subj-label">${s.label}</span>
+        <div class="subj-bar-outer">
+          <div class="subj-bar-inner" id="bar-${s.key}" style="background:${s.color}"></div>
+        </div>
+        <span class="subj-pct" id="pct-${s.key}">0%</span>
+      `;
+      container.appendChild(div);
+    });
+  }
+
+  function updateProgress() {
+    const allChecks  = document.querySelectorAll('.check');
+    const doneChecks = document.querySelectorAll('.check.done');
+    const overallPct = allChecks.length > 0 ? Math.round(doneChecks.length / allChecks.length * 100) : 0;
+    document.getElementById('bar').style.width = overallPct + '%';
+    document.getElementById('pct').textContent  = overallPct + '%';
+
+    SUBJECTS.forEach(s => {
+      const cards = document.querySelectorAll(`.card-header.${s.key}`);
+      let total = 0, done = 0;
+      cards.forEach(header => {
+        const body = header.nextElementSibling;
+        if (!body) return;
+        body.querySelectorAll('.check').forEach(chk => {
+          total++;
+          if (chk.classList.contains('done')) done++;
+        });
+      });
+      const pct = total > 0 ? Math.round(done / total * 100) : 0;
+      const barEl = document.getElementById('bar-' + s.key);
+      const pctEl = document.getElementById('pct-' + s.key);
+      if (barEl) barEl.style.width = pct + '%';
+      if (pctEl) pctEl.textContent  = pct + '%';
+    });
+
+    // Always save locally too
+    localStorage.setItem('tjce_checks', JSON.stringify([...doneChecks].map(el => el.dataset.id)));
+  }
+
+  function applyChecks(ids) {
+    document.querySelectorAll('.check').forEach(el => el.classList.remove('done'));
+    ids.forEach(sid => {
+      const el = document.querySelector(`.check[data-id="${sid}"]`);
+      if (el) el.classList.add('done');
+    });
+    updateProgress();
+  }
+
+  /* ══════════════════════════════
+     INIT
+  ══════════════════════════════ */
+  document.addEventListener('DOMContentLoaded', async () => {
+    buildSubjectBars();
+
+    // Build checkboxes
+    let id = 0;
+    document.querySelectorAll('.row').forEach(row => {
+      const chk = document.createElement('div');
+      chk.className = 'check';
+      chk.dataset.id = id++;
+      chk.addEventListener('click', () => {
+        chk.classList.toggle('done');
+        updateProgress();
+        schedulSync();
+      });
+      row.insertBefore(chk, row.firstChild);
+    });
+
+    // 1) Apply local cache first (instant)
+    try {
+      const local = JSON.parse(localStorage.getItem('tjce_checks') || '[]');
+      applyChecks(local);
+    } catch(e) {}
+
+    // 2) Try to fetch from Gist (overrides local if available)
+    const token = localStorage.getItem('gh_token');
+    if (token) {
+      setSyncStatus('syncing', 'Sincronizando...');
+      const remote = await loadFromGist();
+      if (remote) {
+        applyChecks(remote);
+        setSyncStatus('synced');
+      }
+    } else {
+      setSyncStatus('offline');
+    }
+  });
+
+  // Close modal clicking outside
+  document.getElementById('sync-modal-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+</script>
+</body>
+</html>
